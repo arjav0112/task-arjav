@@ -5,7 +5,7 @@ const passport = require('passport')
 const authroutes = require('./routes/youtube.js') 
 const session = require('express-session')
 const mongoose = require('mongoose');
-const User = require('./models/User.js')
+const User = require('./models/user.js')
 const path =require('path')
 const ejsmate = require("ejs-mate")
 

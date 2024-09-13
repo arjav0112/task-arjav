@@ -1,6 +1,6 @@
 const passport = require('passport');
 const { Strategy: googleStrategy } = require("passport-google-oauth20")
-const User = require('../models/User.js')
+const User = require('../models/user.js')
 
 passport.use(new googleStrategy(
     {
@@ -23,6 +23,7 @@ passport.use(new googleStrategy(
                 name: profile.displayName,
                 email: profile.emails[0].value,
                 googleId: profile.id, 
+                accessToken: accessToken,
             });
 
             await user.save();
