@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const passport = require('passport')
-const authroutes = require('./routes/youtube.js') 
+const authroutes = require('./routes/authroutes.js') 
 const session = require('express-session')
 const mongoose = require('mongoose');
 const User = require('./models/user.js')
@@ -23,7 +23,7 @@ async function main(){
   await mongoose.connect('mongodb://127.0.0.1:27017/test');
 }
 
-require('./startegies/google.js')
+require('./startegies/passport.js')
 const port = process.env.PORT
 
 const sessionOptions = {
