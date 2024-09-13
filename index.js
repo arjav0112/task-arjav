@@ -43,12 +43,26 @@ const sessionOptions = {
   app.use(passport.session());
 
 app.use('/auth',authroutes)
-app.get("/",(req,res)=>{
-    console.log(req.session)
-    console.log(req.session.id)
-    req.session.visited = true;
-    res.status(201).send({msg: "hello peter"})
+
+app.get("/logout",(req,res)=>{
+  req.logout((err)=>{
+    if(err){
+      res.send("some error occured")
+        throw err;
+
+    }
     
+    res.redirect("/");
+});
+})
+app.get("/",(req,res)=>{
+    
+    res.status(201).send({msg: "hello Arjav"})
+    
+})
+
+app.get("*",(req,res)=>{
+  res.send("<h1>Page Not found Error</h1>")
 })
 app.listen(port,()=>{
     console.log("app working at",port);
