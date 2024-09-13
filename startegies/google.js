@@ -16,7 +16,9 @@ passport.use(new googleStrategy(
             
             let user = await User.findOne({ email: profile.emails[0].value });
 
-            if (user) {    
+            if (user) {   
+                let id = user["_id"]
+                user = await User.findByIdAndUpdate(id,{Token:accessToken},{new:true}); 
                 return done(null, user);
             }
             
@@ -29,7 +31,7 @@ passport.use(new googleStrategy(
 
             await user.save();
 
-            done(null, user);
+            done(null,user);
         } catch (error) {
             console.error(error);
             done(error, null);
