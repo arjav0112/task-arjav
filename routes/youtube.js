@@ -9,8 +9,15 @@ router.get("/google",passport.authenticate("google"),async (req,res)=>{
         let API_KEY = process.env.API_KEY;
         let data = await fetch(`https://www.googleapis.com/youtube/v3/subscriptions?key${API_KEY}&part=snippet&mine=true&access_token=${Token}`);
         let jsondata = await data.json();
-        console.log(jsondata.items[0].snippet);
-    res.send("hello world");
+        let subcribers = jsondata.items;
+        let arr = [] 
+        for(let sub of subcribers){
+            arr.push({name: sub.snippet.title,channelId: sub.snippet.channelId})
+        }
+        console.log(arr);
+
+        // console.log(jsondata.items[0].snippet);
+    res.send(arr);
 
 
     }catch(err){
