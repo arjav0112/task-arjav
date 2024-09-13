@@ -12,7 +12,7 @@ const userSchema  = new Schema({
     googleId: {
         type:String,
     },
-    accessToken: {
+    Token: {
         type: String,
     }
 

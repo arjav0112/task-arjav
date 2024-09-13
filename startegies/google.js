@@ -7,10 +7,11 @@ passport.use(new googleStrategy(
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         callbackURL: "http://localhost:3001/auth/google",
-        scope: ['email', 'profile'],
+        scope: ['email', 'profile', "https://www.googleapis.com/auth/youtube.readonly"],
     },
     async (accessToken, refreshToken, profile, done) => {
-        console.log(accessToken);
+        // console.log(accessToken);
+        // console.log(profile)
         try {
             
             let user = await User.findOne({ email: profile.emails[0].value });
@@ -23,7 +24,7 @@ passport.use(new googleStrategy(
                 name: profile.displayName,
                 email: profile.emails[0].value,
                 googleId: profile.id, 
-                accessToken: accessToken,
+                Token: accessToken,
             });
 
             await user.save();
