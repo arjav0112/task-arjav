@@ -23,7 +23,8 @@ async function main(){
   await mongoose.connect('mongodb://127.0.0.1:27017/test');
 }
 
-require('./startegies/passport.js')
+require('./startegies/ytpassport.js')
+require('./startegies/gitpassport.js')
 const port = process.env.PORT
 
 const sessionOptions = {
@@ -57,7 +58,7 @@ app.get("/logout",(req,res)=>{
 })
 app.get("/",(req,res)=>{
     
-    res.status(201).send({msg: "hello Arjav"})
+    res.render("home.ejs")
     
 })
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to the Authentication page</h1>
+    <div class="login">
+        <p>Google login</p>
+        <form action="/auth/google">
+            <button>Google</button>
+        </form>
+        <p>Github login</p>
+        <form action="/auth/github">
+            <button>Github</button>
+        </form>
+    </div>
+
+    <div class="Gitinfo">
+        <%if(gituser!=null){%>
+            <%if(gituser.isvalid === true){%>
+                <p1>verified</p1>
+             <%}else{%>
+                <p1>not verified</p1>
+            <%}%>
+        <%}else{%>
+            <p>login to verify</p>
+        <%}%>
+    </div>
+    <div class="Gitinfo"></div>
+        <%if(users!=null){%>
+            <%if(users.isvalid === true){%>
+                <p1>verified</p1>
+             <%}else{%>
+                <p1>not verified</p1>
+            <%}%>
+        <%}else{%>
+            <p>login to verify</p>
+        <%}%>
+    </div>
+
+    <div class="submit">
+        <%if(gituser!=null && users!=null){%>
+            <%if((users.isvalid === true) && (gituser.isvalid === true)){ %>
+                <form action="/auth/end">
+                    <button>Submit</button>
+                </form>
+            <%}else{%>
+                <button disabled>Submit</button>
+            <%}%>
+       <%}else{%>
+        <button disabled>Submit</button>
+      <%}%>
+    </div>
+</body>
+</html>

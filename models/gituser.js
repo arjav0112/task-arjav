@@ -9,18 +9,15 @@ const userSchema  = new Schema({
     email : {
         type: String,
     },
-    googleId: {
-        type:String,
-    },
-    Token: {
+    TokenGit: {
         type: String,
     },
-    isvalid: {
-        type: Boolean,
+    isvalid:{
+        type:Boolean,
     }
 
 });
 
 userSchema.plugin(passportlocalmongosse);
 
-module.exports = mongoose.model("User",userSchema);
+module.exports = mongoose.model("GitUser",userSchema);
