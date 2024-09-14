@@ -6,8 +6,8 @@ const GitUser = require("../models/gituser.js")
 const User = require("../models/user.js")
 
 router.get("/page",async (req,res)=>{
-    // console.log(req.user)
-    let id = "66e59901a6be6c7bd6e3a229"
+    
+    let id = "66e59b4b69e979f0b89bf83e"
     if(req.user){
          id = req.user["_id"]
     }
@@ -50,7 +50,6 @@ router.get("/google",passport.authenticate("google"),async (req,res)=>{
         console.log(err);
         throw err;
     }
-    
 })
 
 router.get("/github",passport.authenticate("github"),async (req,res)=>{
