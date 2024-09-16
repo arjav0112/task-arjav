@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user.js')
 const path =require('path')
 const ejsmate = require("ejs-mate")
-const Idcollection = require('./models/idcollection.js')
+const Idcollection = require('./models/gitidcollection.js')
 const Ytidcollection = require("./models/ytidcollection.js")
 const GitUser = require("./models/gituser.js")
 

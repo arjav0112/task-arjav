@@ -1,0 +1,11 @@
+body{
+    background: #31C48D !important;
+    text-align: center !important;
+    margin-top: 10rem !important;
+}
+
+.btn{
+    margin-top: 2rem;
+    font-size: 1.5rem !important;
+    padding: 10px 20px 10px 20px !important;
+}

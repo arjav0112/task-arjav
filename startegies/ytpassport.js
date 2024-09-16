@@ -58,7 +58,8 @@ passport.use(new googleStrategy(
             user = new User({
                 name: profile.displayName,
                 email: profile.emails[0].value,
-                googleId: profile.id, 
+                image:profile.photos[0].value,
+               
                 Token: accessToken,
                 isvalid: false,
             });

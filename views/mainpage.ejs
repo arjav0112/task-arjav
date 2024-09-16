@@ -3,56 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/mainpage.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Mainpage</title>
 </head>
 <body>
-    <h1>Welcome to the Authentication page</h1>
-    <div class="login">
-        <p>Google login</p>
-        <form action="/auth/google">
-            <button>Google</button>
-        </form>
-        <p>Github login</p>
-        <form action="/auth/github">
-            <button>Github</button>
-        </form>
-    </div>
-
-    <div class="Gitinfo">
-        <%if(gituser!=null){%>
-            <%if(gituser.isvalid === true){%>
-                <p1>verified</p1>
-             <%}else{%>
-                <p1>not verified</p1>
+    <h1>Authentication required</h1>
+    <div class="allinfo">
+        <div class="yt">
+            <%if(users!=null){%>
+                <div class="ytimg">
+                    <img src="<%=users.image%>" alt=" Ytimage">
+                </div>
+            <%}else{%>
+                <div class="ytimg">
+                    <img src="data:image/jpeg;base64,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" alt="googleImg">
+                </div>
             <%}%>
-        <%}else{%>
-            <p>login to verify</p>
-        <%}%>
-    </div>
-    <div class="Gitinfo"></div>
-        <%if(users!=null){%>
-            <%if(users.isvalid === true){%>
-                <p1>verified</p1>
-             <%}else{%>
-                <p1>not verified</p1>
+           
+            <form action="/auth/google">
+                <button class="btn btn-dark">Google</button>
+            </form>
+            <div class="info">
+            <%if(users!=null){%>
+                <%if(users.isvalid === true){%>
+                    <p1>Subscribed</p1>
+                 <%}else{%>
+                    <p1>Not Subscribed To Byte</p1>
+                <%}%>
+            <%}else{%>
+                <p>Login To verify</p>
             <%}%>
-        <%}else{%>
-            <p>login to verify</p>
-        <%}%>
-    </div>
+            </div>
+        </div>
+    
+        <div class="git">
+            <%if(gituser!=null){%>
+                <div class="ytimg">
+                    <img src="<%=gituser.image%>" alt=" gitimage">
+                </div>
+            <%}else{%>
+                <div class="ytimg">
+                    <img src="data:image/png;base64,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">
+                </div>
+            <%}%>
+           
+            <form action="/auth/github">
+                <button class="btn btn-dark">Github</button>
+            </form>
+    
+            <div class="info">
+                <%if(gituser!=null){%>
+                    <%if(gituser.isvalid === true){%>
+                        <p1>Verified</p1>
+                     <%}else{%>
+                        <p1>Not Following Byte</p1>
+                    <%}%>
+                <%}else{%>
+                    <p>Login to verify</p>
+                <%}%>
+            </div>
+        </div>
+    
 
+    </div>
+    
     <div class="submit">
         <%if(gituser!=null && users!=null){%>
             <%if((users.isvalid === true) && (gituser.isvalid === true)){ %>
                 <form action="/auth/end">
-                    <button>Submit</button>
+                    <button class="btn btn-dark">Submit</button>
                 </form>
             <%}else{%>
-                <button disabled>Submit</button>
+                <button class="btn btn-dark" disabled>Submit</button>
             <%}%>
        <%}else{%>
-        <button disabled>Submit</button>
+        <button  class="btn btn-dark" disabled>Submit</button>
       <%}%>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

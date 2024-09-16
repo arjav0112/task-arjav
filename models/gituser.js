@@ -9,6 +9,9 @@ const userSchema  = new Schema({
     email : {
         type: String,
     },
+    image: {
+        type:String,
+    },
     TokenGit: {
         type: String,
     },

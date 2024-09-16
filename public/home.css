@@ -1,0 +1,33 @@
+body{
+    background: #31C48D;
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    margin-top: 15rem;
+}
+
+.btns{
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
+.btn{
+    font-size: 1.5rem;
+    padding : 10px 10px 10px 10px;
+    margin-right: 40px;
+    border-radius: 10px;
+    box-shadow: 5px 5px black;
+}
+
+.btn:hover {
+    font-size: 1.6rem
+}
+
+h1{
+    font-size: 3.5rem;
+    font-weight: 300;
+}

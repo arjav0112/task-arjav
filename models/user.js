@@ -12,6 +12,9 @@ const userSchema  = new Schema({
     googleId: {
         type:String,
     },
+    image:{
+        type: String,
+    },
     Token: {
         type: String,
     },

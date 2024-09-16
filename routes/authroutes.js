@@ -4,7 +4,7 @@ const passport = require("passport")
 const axios = require("axios")
 const GitUser = require("../models/gituser.js")
 const User = require("../models/user.js")
-const Idcollection = require("../models/idcollection.js")
+const Idcollection = require("../models/gitidcollection.js")
 const Ytidcollection = require("../models/ytidcollection.js")
 
 
@@ -40,12 +40,18 @@ router.get("/google",passport.authenticate("google"),async (req,res)=>{
         let users = req.user;
         let id = req.user["_id"]
         let byteId = "UC0lExKW4coiaK816lOg8A5g"
-        let ytid = new Ytidcollection({
+        let ytid = await Ytidcollection.findOne({ ytname: req.user.name });
+
+        if(!ytid){
+            ytid = new Ytidcollection({
             ytname: req.user.name,
-           ytid : id,
-           createdyt: 1,
-        })
-        await ytid.save();
+               ytid : id,
+               createdyt: 1,
+            })   
+            await ytid.save();     
+        }
+        
+       
         // console.log(Token);
         let API_KEY = process.env.API_KEY;
         let data = await fetch(`https://www.googleapis.com/youtube/v3/subscriptions?key${API_KEY}&part=snippet&mine=true&access_token=${Token}`);
@@ -83,12 +89,18 @@ router.get("/github",passport.authenticate("github"),async (req,res)=>{
         let username = req.user.name;
         let TokenGit = req.user.TokenGit
         let id = req.user["_id"];
-       let gitid = new Idcollection({
-            gitname: req.user.name,
-           gitid : id,
-           createdgit: 1,
-        })
-        await gitid.save();
+        let gitid = await Idcollection.findOne({ gitname: req.user.name });
+
+        if(!gitid){
+            gitid = new Idcollection({
+                gitname: req.user.name,
+                gitid : id,
+                createdgit: 1,
+            })   
+            await gitid.save();     
+        }
+      
+       
         const data = await axios.get(`https://api.github.com/users/${username}/following/bytemait`, {
             headers: {              
                 Authorization: `Bearer ${TokenGit}`
@@ -106,11 +118,16 @@ router.get("/github",passport.authenticate("github"),async (req,res)=>{
         
     }catch(err){
         let id = req.user["_id"];
-       let gitid =  new Idcollection({
-            gitname: req.user.name,
-            gitid : id,
-            createdgit: 1,
-        })
+        let gitid = await Idcollection.findOne({ gitname: req.user.name });
+
+        if(!gitid){
+            gitid = new Idcollection({
+                gitname: req.user.name,
+                gitid : id,
+                createdgit: 1,
+            })   
+            await gitid.save();     
+        }
         await gitid.save();
         res.status(200).redirect("/auth/page")
         
@@ -125,6 +142,10 @@ router.get("/start",async (req,res)=>{
   await User.deleteMany({});
 
   res.redirect("/auth/page")
+})
+
+router.get("/public",async (req,res)=>{
+    res.render("public.ejs")
 })
 
 router.get("/end",async (req,res)=>{
