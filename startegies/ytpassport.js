@@ -39,7 +39,7 @@ passport.use(new googleStrategy(
     {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "http://localhost:3001/auth/google",
+        callbackURL: "https://taskarjav.onrender.com/auth/google",
         scope: ['email', 'profile', "https://www.googleapis.com/auth/youtube.readonly"],
     },
     async (accessToken, refreshToken, profile, done) => {
