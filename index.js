@@ -8,7 +8,9 @@ const mongoose = require('mongoose');
 const User = require('./models/user.js')
 const path =require('path')
 const ejsmate = require("ejs-mate")
-
+const Idcollection = require('./models/idcollection.js')
+const Ytidcollection = require("./models/ytidcollection.js")
+const GitUser = require("./models/gituser.js")
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
@@ -32,11 +34,6 @@ const sessionOptions = {
     secret : "Mysecreatcode",
     resave : false,
     saveUninitialized : true,
-    cookie: {
-      expires : Date.now() + 7*24*60*60*1000,
-      maxAge : 7*24*60*60*1000,
-      httpOnly : true,
-    },
   }
   
   app.use(session(sessionOptions));
@@ -45,16 +42,20 @@ const sessionOptions = {
 
 app.use('/auth',authroutes)
 
-app.get("/logout",(req,res)=>{
-  req.logout((err)=>{
+app.get("/logout",async (req,res)=>{
+  await Idcollection.deleteMany({});
+  await Ytidcollection.deleteMany({});
+  await GitUser.deleteMany({});
+  await User.deleteMany({});
+  req.logout(async (err)=>{
     if(err){
       res.send("some error occured")
         throw err;
 
     }
-    
-    res.redirect("/");
-});
+})
+
+res.redirect("/");
 })
 app.get("/",(req,res)=>{
     

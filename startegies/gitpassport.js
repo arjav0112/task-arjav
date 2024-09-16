@@ -15,6 +15,7 @@ passport.use(new GitHubStrategy({
         if (gituser) {   
             let id = gituser["_id"]
             gituser = await GitUser.findByIdAndUpdate(id,{name:profile.username,TokenGit:accessToken,isvalid: false},{new:true}); 
+            
             return done(null, gituser);
         }
         
@@ -27,6 +28,7 @@ passport.use(new GitHubStrategy({
         });
 
         await gituser.save();
+        
 
         done(null,gituser);
     } catch (error) {
