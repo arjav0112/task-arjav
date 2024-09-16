@@ -78,7 +78,8 @@ router.get("/google",passport.authenticate("google"),async (req,res)=>{
 
     }catch(err){
         console.log(err);
-        throw err;
+        res.redirect("/auth/page")
+        
     }
 })
 
