@@ -11,6 +11,7 @@ const ejsmate = require("ejs-mate")
 const Idcollection = require('./models/gitidcollection.js')
 const Ytidcollection = require("./models/ytidcollection.js")
 const GitUser = require("./models/gituser.js")
+const MongoStore = require('connect-mongo')
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
@@ -19,22 +20,39 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"public")));
 app.engine("ejs",ejsmate);
 
+
+
+const dburl = process.env.DB_URL;
+
 main().then(()=>{console.log("connection spotted")}).catch(err => console.log(err));
 
 async function main(){
-  await mongoose.connect('mongodb://127.0.0.1:27017/test');
+  await mongoose.connect(dburl);
 }
 
 require('./startegies/ytpassport.js')
 require('./startegies/gitpassport.js')
 const port = process.env.PORT
 
+const store = MongoStore.create({
+  mongoUrl: dburl,
+  crypto: {
+    secret: 'Mysecreatcode',
+  },
+  touchAfter: 24*3600,
+})
+
+
+store.on("error", () => {
+  console.log("ERROR in MONGO SESSION STORE",err);
+})
+
 const sessionOptions = {
-    
-    secret : "Mysecreatcode",
-    resave : false,
-    saveUninitialized : true,
-  }
+  store:store,
+  secret : "Mysecreatcode",
+  resave : false,
+  saveUninitialized : true,
+}
   
   app.use(session(sessionOptions));
   app.use(passport.initialize());
