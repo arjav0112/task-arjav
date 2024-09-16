@@ -39,7 +39,7 @@ router.get("/google",passport.authenticate("google"),async (req,res)=>{
         let {Token} = req.user;
         let users = req.user;
         let id = req.user["_id"]
-        let byteId = "UC0lExKW4coiaK816lOg8A5g"
+        
         let ytid = await Ytidcollection.findOne({ ytname: req.user.name });
 
         if(!ytid){
@@ -51,23 +51,23 @@ router.get("/google",passport.authenticate("google"),async (req,res)=>{
             await ytid.save();     
         }
         
-       
-        // console.log(Token);
-        let API_KEY = process.env.API_KEY;
-        let data = await fetch(`https://www.googleapis.com/youtube/v3/subscriptions?key${API_KEY}&part=snippet&mine=true&access_token=${Token}`);
-        let jsondata = await data.json();
-        let subcribers = jsondata.items;
-        let arr = [] 
-        for(let sub of subcribers){
-            arr.push({name: sub.snippet.title,channelId: sub.snippet.channelId})
-        }
-        let subcribed = {name : "arjav" , channelId : "abc"}
-        subcribed = arr.find((ele) => (ele.channelId === byteId));
-        // console.log(subcribed)
-        if(!subcribed){
-            return res.redirect("/auth/page")
-        }
-        if(subcribed.name === "BYTE"){
+        const response = await axios.get('https://www.googleapis.com/youtube/v3/subscriptions', {
+            params: {
+                part: 'snippet',
+                mine: true,
+                key: process.env.API_KEY,
+                forChannelId : 'UCgIzTPYitha6idOdrr7M8sQ'
+                
+
+            },
+            headers: {
+                Authorization: `Bearer ${Token}`
+            }
+        })
+        
+        const isSubscribed = response.data.items.length > 0;
+
+        if(isSubscribed){
             let id = users["_id"];
             users = await User.findByIdAndUpdate(id,{isvalid: true},{new:true})
             // console.log(users)
