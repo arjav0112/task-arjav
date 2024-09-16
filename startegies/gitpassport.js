@@ -11,7 +11,7 @@ passport.use(new GitHubStrategy({
     try {
             
         let gituser = await GitUser.findOne({ email: profile.emails[0].value });
-        console.log(profile.photos[0].value)
+        // console.log(profile.photos[0].value)
         if (gituser) {   
             let id = gituser["_id"]
             gituser = await GitUser.findByIdAndUpdate(id,{name:profile.username,TokenGit:accessToken,isvalid: false},{new:true}); 
