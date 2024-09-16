@@ -64,6 +64,9 @@ router.get("/google",passport.authenticate("google"),async (req,res)=>{
         let subcribed = {name : "arjav" , channelId : "abc"}
         subcribed = arr.find((ele) => (ele.channelId === byteId));
         // console.log(subcribed)
+        if(!subcribed){
+            return res.redirect("/auth/page")
+        }
         if(subcribed.name === "BYTE"){
             let id = users["_id"];
             users = await User.findByIdAndUpdate(id,{isvalid: true},{new:true})
