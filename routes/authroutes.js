@@ -153,7 +153,13 @@ router.get("/public",async (req,res)=>{
 })
 
 router.get("/end",async (req,res)=>{
-    res.render("end.ejs")
+    let gitidcollector = await Idcollection.findOne({createdgit : 1});
+    let ytidcollector = await Ytidcollection.findOne({createdyt : 1});
+
+    if(gitidcollector && ytidcollector){
+        return res.render("end.ejs")
+    }
+    res.redirect("/auth/page")
 })
 
 module.exports= router;
